@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Recommendation</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background-color: #f0f0f0;
+            padding-top: 50px; /* Adjust this value based on your navbar height */
+        }
+        .video-feed {
+            max-width: 100%;
+            display: block;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card mt-5">
+                    <div class="card-header bg-primary text-white">
+                        <h1 class="text-center">product Recommendation System</h1>
+                    </div>
+                    <div class="card-body">
+                        <img src="{{ url_for('video_feed') }}" class="card-img-top" alt="Video Feed" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row justify-content-center mt-5">
+            <div class="col-md-8">
+                <div class="card">
+                    
+                    <div class="card-body">
+                        <form method="POST" action="/ragis" enctype="multipart/form-data" id="registrationForm">
+                            <button type="submit" id="submitButton" class="btn btn-primary btn-block">Recommend Products</button>
+                        </form>
+
+                        {% if prediction is not none %}
+                        <div class="mt-3">
+                            <h3>Recommendations</h3>
+                            <div class="row">
+                                {% for index, row in prediction.iterrows() %}
+                                <div class="col-md-4">
+                                    <div class="card">
+                                        <img src="{{ row['link'] }}" class="card-img-top" alt="Goggle Image" />
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

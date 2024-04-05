@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Goggle Recommendation</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background-color: #f0f0f0;
+            padding-top: 50px; /* Adjust this value based on your navbar height */
+        }
+        .video-feed {
+            max-width: 100%;
+            display: block;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card mt-5">
+                    <div class="card-header">
+                        <h1 class="text-center">Goggles Recommendation System</h1>
+                    </div>
+                    <div class="card-body">
+                        <img src="{{ url_for('video_feed') }}" class="video-feed img-fluid" alt="Video Feed" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row justify-content-center mt-4">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="text-center">Recommendation</h2>
+                    </div>
+                    <div class="card-body">
+                        <form method="POST" action="/ragis" enctype="multipart/form-data" id="registrationForm">
+                            <button type="submit" id="submitButton" class="btn btn-primary btn-block">Recommendation</button>
+                        </form>
+
+                        {% if prediction is not none %}
+                        <div class="mt-3">
+                            <h3>Recommendations</h3>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Link</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for index, row in prediction.iterrows() %}
+                                    <tr>
+                                        <td><img src="{{ row['link'] }}" width="100" height="auto" class="img-fluid" alt="Goggle Image" /></td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
